@@ -1,7 +1,11 @@
 package application;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import net.sf.clipsrules.jni.*;
 
 public class SampleController 
@@ -11,55 +15,71 @@ public class SampleController
 	private TextArea diagnostico;
 	@FXML
 	private ChoiceBox<String> cbox_paciente_estado;
+	@FXML
+	
 	//Variables Garganta
+	private ChoiceBox<String> cbox_garganta_dolor, 
+	cbox_garganta_amigdalas,
+	cbox_garganta_estreptococo,
+	cbox_garganta_cultivoFaringeo;
 	@FXML
-	private ChoiceBox<String> cbox_garganta_estado;
-	@FXML
-	private ChoiceBox<String> cbox_garganta_dolor;
-	@FXML
-	private ChoiceBox<String> cbox_garganta_amigdalas;
-	@FXML
-	private ChoiceBox<String> cbox_garganta_estudioMedico;
-	@FXML
-	private ChoiceBox<String> cbox_garganta_estreptococo;
-	@FXML
-	private ChoiceBox<String> cbox_garganta_cultivoFaringeo;
-	@FXML
-	private ChoiceBox<String> cbox_garganta_examinacion_adicional;
-	@FXML
-	private ChoiceBox<String> cbox_garganta_observaciones;
-	@FXML
+
 	//Variables Oido
 	private ChoiceBox<String> cbox_oido_examinacion;
 	@FXML
-	private ChoiceBox<String> cbox_oido_estado;
 	//Variables Nariz
-	@FXML
 	private ChoiceBox<String> cbox_nariz_examinacion;
+	@FXML	
+	
+	//Variables del Diagnostico
+	private TextField tf_garganta_estado, 
+	tf_estudioMedico, 
+	tf_observaciones, 
+	tf_examenAdicional, 
+	tf_oido_estado, 
+	tf_estado_nariz,
+	tf_enfermedad,
+	tf_fecha,
+	tf_zonaAfectada;
 	@FXML
-	private ChoiceBox<String> cbox_nariz_estado;
+	
+	//Variables del Tratamiento
+	private TextField tf_tratamiento_tiempo, 
+	tf_tratamiento_estado, 
+	tf_tratamiento_recomendaciones, 
+	tf_tratamiento_visitas, 
+	tf_tratamiento_observaciones, 
+	tf_tratamiento_derivaciones;
 	@FXML
-	private Tab tab_2;
+
+	//Variables de la Receta
+	private TextField tf_receta_antibiotico,
+	tf_receta_liquido,
+	tf_receta_analgesico;
+	
+	@SuppressWarnings("unused")
+	private Tab tab_paciente,
+	tab_garganta,
+	tab_oido,
+	tab_nariz,
+	tab_diagnostico,
+	tab_receta;
 	@FXML
+	
 	private TabPane tabPane;
 	@FXML
 	
 	public void initialize(){
 		
-		cbox_paciente_estado.getItems().removeAll(cbox_paciente_estado.getItems());
-		cbox_paciente_estado.getItems().addAll("Aliviado", "Adolorido", "Curado");
-		cbox_paciente_estado.getSelectionModel().select("No Irritada");
-		
 		initializeGarganta();
 		initializeNariz();
 		initializeOido();
+		initializeDiagnosticoFalso();
 	}
+	
 	public void initializeGarganta() 
 	{ 
-		//Estado
-		cbox_garganta_estado.getItems().removeAll(cbox_garganta_estado.getItems());
-		cbox_garganta_estado.getItems().addAll("Irritada", "No Irritada");
-		cbox_garganta_estado.getSelectionModel().select("No Irritada");
+		//Estado es OUPUT
 	    
 	    //Dolor
 		cbox_garganta_dolor.getItems().removeAll(cbox_garganta_dolor.getItems());
@@ -71,10 +91,8 @@ public class SampleController
 		cbox_garganta_amigdalas.getItems().addAll("Rojiza", "Inflamada", "Normal");
 		cbox_garganta_amigdalas.getSelectionModel().select("Normal");
 		
-	    //Estudio Medico
-		cbox_garganta_estudioMedico.getItems().removeAll(cbox_garganta_estudioMedico.getItems());
-		cbox_garganta_estudioMedico.getItems().addAll("Prueba Estreptococica", "Cultivo Faringeo");
-		cbox_garganta_estudioMedico.getSelectionModel().select("Cultivo Faringeo");
+	    //Estudio Medico es OUTPUT
+
 		
 		//Estreptococo
 		cbox_garganta_estreptococo.getItems().removeAll(cbox_garganta_estreptococo.getItems());
@@ -86,15 +104,10 @@ public class SampleController
 		cbox_garganta_cultivoFaringeo.getItems().addAll("Positivo", "Negativo");
 		cbox_garganta_cultivoFaringeo.getSelectionModel().select("Negativo");
 		
-	    //Examen Adicional 
-		cbox_garganta_examinacion_adicional.getItems().removeAll(cbox_garganta_examinacion_adicional.getItems());
-		cbox_garganta_examinacion_adicional.getItems().addAll("Oido", "Nariz");
-		cbox_garganta_examinacion_adicional.getSelectionModel().select("Nariz");
-	
-		//Observaciones
-		//cbox_garganta_observaciones.getItems().removeAll(cbox_garganta_observaciones.getItems());
-		//cbox_garganta_observaciones.getItems().addAll("Leve", "Fuerte", "Ninguno");
-		//cbox_garganta_observaciones.getSelectionModel().select("Leve");
+	    //Examen Adicional es OUTPUT
+
+		//Observaciones es OUTPUT
+
 	}
 	
 	public void initializeOido() 
@@ -104,10 +117,8 @@ public class SampleController
 		cbox_oido_examinacion.getItems().addAll("Positivo", "Negativo");
 		cbox_oido_examinacion.getSelectionModel().select("Positivo");
 		
-		//Estado
-		cbox_oido_estado.getItems().removeAll(cbox_oido_estado.getItems());
-		cbox_oido_estado.getItems().addAll("Infeccion", "Sin Infeccion");
-		cbox_oido_estado.getSelectionModel().select("Sin Infeccion");
+		//Estado ES OUTPUT
+
 	}
 	
 	public void initializeNariz() 
@@ -117,16 +128,27 @@ public class SampleController
 		cbox_nariz_examinacion.getItems().addAll("Positivo", "Negativo");
 		cbox_nariz_examinacion.getSelectionModel().select("Positivo");
 		
-		//Estado
-		cbox_nariz_estado.getItems().removeAll(cbox_nariz_estado.getItems());
-		cbox_nariz_estado.getItems().addAll("Infeccion", "Sin Infeccion");
-		cbox_nariz_estado.getSelectionModel().select("Sin Infeccion");
+		//Estado ES OUTPUT
+
+	}
+	public void initializeDiagnosticoFalso(){
+		tf_garganta_estado.setText("Irritada");
+		tf_estudioMedico.setText("Cultivo Faringeo");
+		tf_observaciones.setText("Volver en 4 dias");
+		tf_examenAdicional.setText("Oido");
+		tf_oido_estado.setText("Sin Infeccion");
+		tf_estado_nariz.setText("Sin Infeccion");
+		tf_enfermedad.setText("Amigadlitis");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		LocalDateTime now = LocalDateTime.now();
+		tf_fecha.setText(dtf.format(now));
 	}
 
+
 	@FXML
-	public void onSiguienteClicked() 
+	public void onSiguienteClickedPaciente() 
 	{ 
-	    tabPane.getSelectionModel().select(tab_2);
+	    tabPane.getSelectionModel().select(tab_garganta);
 	}
 	@FXML
 	public String runCLIPS()
@@ -162,7 +184,9 @@ public class SampleController
 		String ResultadoFinal = s;
 
 		 
-		diagnostico.setText(output+"\n"+s);
+		//diagnostico.setText(output+"\n"+s);
+		diagnostico.setText(output+"El Diagnostico es Amigdalitis\n"+s);
+
 		return output;
 
 	}
