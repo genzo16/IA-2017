@@ -112,38 +112,38 @@
 (deftemplate receta
 	(slot antibiotico
 		(type STRING)
-		(allowed-strings "Amoxicilina" "Penicilina"
+		(allowed-strings "Amoxicilina" "Penicilina")
 	)
 	(slot analgesico
 		(type STRING)
-		(allowed-strings "Ibuprofeno"
+		(allowed-strings "Ibuprofeno")
 	)
 	(slot liquidos
 		(type STRING)
-		(allowed-strings "Sopa" "Zumo citrico" "te con limon"
+		(allowed-strings "Sopa" "Zumo citrico" "te con limon")
 	)
 	(slot solidos
 		(type STRING)
-		(allowed-strings "Pure"
+		(allowed-strings "Pure")
 	)
 )	
 
 (deftemplate tratamiento
 	(slot tiempo
 		(type STRING)
-		(allowed-strings "4 dias"
+		(allowed-strings "4 dias")
 	)
 	(slot estado
 		(type STRING)
-		(allowed-strings "En Tratamiento" "Terminado"
+		(allowed-strings "En Tratamiento" "Terminado")
 	)
 	(slot recomendaciones
 		(type STRING)
-		(allowed-strings "Reposo" "Reposo Absoluto"
+		(allowed-strings "Reposo" "Reposo Absoluto")
 	)
 	(slot visitas
 		(type STRING)
-		(allowed-strings "Volver en 4 dias" "Finalizado"
+		(allowed-strings "Volver en 4 dias" "Finalizado")
 	)
 )
 
@@ -179,7 +179,7 @@
 					  (estado "Adolorido")
 			)
 	)
-	(printout t "El estado del paciente es adolorido"
+	(printout t "El estado del paciente es adolorido")
 )
 
 (defrule REG-D2
@@ -194,12 +194,12 @@
 
 (defrule REG-D3
 	"Amigdalas rojas e inflamadas, garganta irritada"
-	(garganta (amigdala "Rojiza" | "Inflamada"))
+	(garganta (amigdalas "Rojiza" | "Inflamada"))
 	=>
 	(assert (garganta (estado "Irritada")
 			)
 	)
-	(printout t "La garganta esta irritada"
+	(printout t "La garganta esta irritada")
 )
 
 (defrule REG-D4
@@ -289,7 +289,7 @@
 	"Amigdalitis, tiempo tratamiento 4 dias, reposo, volver"
 	(diagnostico (enfermedad "Amigdalitis"))
 	=>
-	(assert (tratamiento (tiempo "4dias")))
+	(assert (tratamiento (tiempo "4 dias")))
 	(assert (tratamiento (estado "En Tratamiento")))
 	(assert (tratamiento (recomendaciones "Reposo")))
 	(assert (tratamiento (visitas "Volver en 4 dias")))
