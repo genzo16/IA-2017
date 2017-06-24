@@ -2,10 +2,11 @@ package application;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+import controller.Core;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import net.sf.clipsrules.jni.*;
 
 public class SampleController 
@@ -14,12 +15,23 @@ public class SampleController
 	@FXML
 	private TextArea diagnostico;
 	@FXML
-	private ChoiceBox<String> cbox_paciente_estado;
+	private TextField paciente_dni;
+	@FXML
+	private TextField paciente_nombre;
+	@FXML
+	private TextField paciente_apellido;
+	@FXML
+	private ChoiceBox<String> cbox_paciente_malestar;
+	@FXML
+	
+	private TextArea ta_diagnostico;
 	@FXML
 	
 	//Variables Garganta
 	private ChoiceBox<String> cbox_garganta_dolor, 
-	cbox_garganta_amigdalas,
+	cbox_amigdalas_tamanio,
+	cbox_amigdalas_color,
+	cbox_amigdalas_placas,
 	cbox_garganta_estreptococo,
 	cbox_garganta_cultivoFaringeo;
 	@FXML
@@ -74,25 +86,34 @@ public class SampleController
 		initializeGarganta();
 		initializeNariz();
 		initializeOido();
-		initializeDiagnosticoFalso();
+		//initializeDiagnosticoFalso();
 	}
 	
 	public void initializeGarganta() 
 	{ 
-		//Estado es OUPUT
+		cbox_paciente_malestar.getItems().removeAll(cbox_paciente_malestar.getItems());
+		cbox_paciente_malestar.getItems().addAll("Garganta", "Ninguno");
+		cbox_paciente_malestar.getSelectionModel().select("Garganta");
 	    
-	    //Dolor
-		cbox_garganta_dolor.getItems().removeAll(cbox_garganta_dolor.getItems());
+		//Dolor
+		/*cbox_garganta_dolor.getItems().removeAll(cbox_garganta_dolor.getItems());
 		cbox_garganta_dolor.getItems().addAll("Leve", "Fuerte", "Ninguno");
-		cbox_garganta_dolor.getSelectionModel().select("Leve");
+		cbox_garganta_dolor.getSelectionModel().select("Leve");*/
 		
-	    //Amigdalas
-		cbox_garganta_amigdalas.getItems().removeAll(cbox_garganta_amigdalas.getItems());
-		cbox_garganta_amigdalas.getItems().addAll("Rojiza", "Inflamada", "Normal");
-		cbox_garganta_amigdalas.getSelectionModel().select("Normal");
+	    //Amigdalas Color
+		cbox_amigdalas_color.getItems().removeAll(cbox_amigdalas_color.getItems());
+		cbox_amigdalas_color.getItems().addAll("Rojiza", "Inflamada", "Normal");
+		cbox_amigdalas_color.getSelectionModel().select("Rojiza");
 		
-	    //Estudio Medico es OUTPUT
-
+		//Amigdalas Placas
+		cbox_amigdalas_placas.getItems().removeAll(cbox_amigdalas_placas.getItems());
+		cbox_amigdalas_placas.getItems().addAll("Presentes", "No hay");
+		cbox_amigdalas_placas.getSelectionModel().select("No hay");
+		
+		//Amigdalas Tamaño
+		cbox_amigdalas_tamanio.getItems().removeAll(cbox_amigdalas_tamanio.getItems());
+		cbox_amigdalas_tamanio.getItems().addAll("Normal", "Grandes");
+		cbox_amigdalas_tamanio.getSelectionModel().select("Grandes");
 		
 		//Estreptococo
 		cbox_garganta_estreptococo.getItems().removeAll(cbox_garganta_estreptococo.getItems());
@@ -151,43 +172,26 @@ public class SampleController
 	    tabPane.getSelectionModel().select(tab_garganta);
 	}
 	@FXML
-	public String runCLIPS()
+	public void runCLIPS()
 	{
-		String programaCLIPS = "./programa.clp";
-		System.out.println(programaCLIPS);
-		clips = new Environment();
-		
-		String output = "CLIPS version " + Environment.getCLIPSVersion()+"\n";
-		output += "Loaded <"+programaCLIPS+">";
-		
-		clips.load(programaCLIPS);
-		clips.reset();
-		clips.run();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		LocalDateTime now = LocalDateTime.now();
 
-		String valor1 = null;
-		String valor2 = null;
-		String evalString = "(assert(hecho(slot1 " +valor1+ ") (slot2 " + valor2 + ")))";
-		//clips.eval("(assert (response (var_a CLIPS_test)))");
-		clips.eval(evalString);
-		clips.run();
-		
-		//Busca todos los hechos "diagnostico"
-		String evalstr= "(find-all-facts ((?J response)) TRUE)";
-		MultifieldValue pv = (MultifieldValue)   clips.eval(evalstr);
-		FactAddressValue fv = (FactAddressValue) pv.get(0);
-		String s = null;
-		try { 
-			s = fv.getFactSlot("var_a").toString();
-		} catch (Exception e1) { 
-			e1.printStackTrace();
+		List<String> resultados = Core.diagnosticar(paciente_dni.getText(), paciente_nombre.getText(), paciente_apellido.getText(), now.toString(), "Dolor de garganta" ,cbox_paciente_malestar.getValue(),
+		cbox_amigdalas_tamanio.getValue(), cbox_amigdalas_color.getValue(), cbox_amigdalas_placas.getValue(), cbox_oido_examinacion.getValue(), "Oido", cbox_nariz_examinacion.getValue(), "Nariz" , "Negativo" , "Garganta" , "Negativo");
+
+		/*List<String> resultados = Core.diagnosticar("34318122", "pepe", "rodriguez", "26/06/2017", "Dolor de garganta" ,"Garganta",
+				"Grandes", "Rojiza", "No hay", "Negativo", "Oido", "Negativo", "Nariz" , "Negativo" , "Garganta" , "Negativo");
+		*/
+		//Para verificar resultados
+		String resul = null;
+		for(String s: resultados){
+			resul += s +"\n"; 
+			System.out.println(s + "\n");
 		}
-		String ResultadoFinal = s;
-
-		 
+		 ta_diagnostico.setText(resul);
 		//diagnostico.setText(output+"\n"+s);
-		diagnostico.setText(output+"El Diagnostico es Amigdalitis\n"+s);
-
-		return output;
+		//return output;
 
 	}
 }

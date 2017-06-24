@@ -28,10 +28,16 @@
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="31.0" layoutY="34.0" text="DNI Afiliado" />
-                        <TextField layoutX="110.0" layoutY="30.0" />
+                        <TextField fx:id="paciente_dni" layoutX="110.0" layoutY="34.0" />
                         <Label layoutX="31.0" layoutY="70.0" text="Nombre" />
-                        <TextField layoutX="110.0" layoutY="66.0" />
+                        <TextField fx:id="paciente_nombre" layoutX="110.0" layoutY="70.0" />
+                        <Label layoutX="31.0" layoutY="105.0" text="Apellido" />
+                        <TextField fx:id="paciente_apellido" layoutX="110.0" layoutY="105.0" />
+                        <Label layoutX="14.0" layoutY="135.0" text="Lugar Malestar " />
+                        <ChoiceBox fx:id="cbox_paciente_malestar" layoutX="110.0" layoutY="135.0" prefWidth="150.0" />
+                        
                         <Button alignment="CENTER" layoutX="512.0" layoutY="260.0" mnemonicParsing="false" onMouseClicked="#onSiguienteClickedPaciente" prefWidth="80.0" text="Siguiente" />
+                     	
                      </children>
                   </Pane>
                </content>
@@ -40,17 +46,20 @@
                <content>
                   <Pane prefHeight="329.0" prefWidth="544.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="26.0" text="Dolor" />
-                        <ChoiceBox fx:id="cbox_garganta_dolor" layoutX="142.0" layoutY="26.0" prefWidth="150.0" />
+                        <Label layoutX="14.0" layoutY="26.0" text="Tamaño Amigdalas" />
+                        <ChoiceBox fx:id="cbox_amigdalas_tamanio" layoutX="142.0" layoutY="26.0" prefWidth="150.0" />
                         
-                        <Label layoutX="14.0" layoutY="66.0" text="Amigdalas" />
-                        <ChoiceBox fx:id="cbox_garganta_amigdalas" layoutX="142.0" layoutY="66.0" prefWidth="150.0" />                       
+                        <Label layoutX="14.0" layoutY="66.0" text="Color Amidgaldas" />
+                        <ChoiceBox fx:id="cbox_amigdalas_color" layoutX="142.0" layoutY="66.0" prefWidth="150.0" />                       
                         
-                        <Label layoutX="14.0" layoutY="105.0" text="Estreptococo" />
-                        <ChoiceBox fx:id="cbox_garganta_estreptococo" layoutX="142.0" layoutY="105.0" prefWidth="150.0" />
+                        <Label layoutX="14.0" layoutY="105.0" text="Amidgaldas Placas" />
+                        <ChoiceBox fx:id="cbox_amigdalas_placas" layoutX="142.0" layoutY="105.0" prefWidth="150.0" /> 
                         
-                        <Label layoutX="14.0" layoutY="144.0" text="Cultivo Faringeo" />
-                        <ChoiceBox fx:id="cbox_garganta_cultivoFaringeo" layoutX="142.0" layoutY="144.0" prefWidth="150.0" />
+                        <Label layoutX="14.0" layoutY="144.0" text="Estreptococo" />
+                        <ChoiceBox fx:id="cbox_garganta_estreptococo" layoutX="142.0" layoutY="144.0" prefWidth="150.0" />
+                        
+                        <Label layoutX="14.0" layoutY="184.0" text="Cultivo Faringeo" />
+                        <ChoiceBox fx:id="cbox_garganta_cultivoFaringeo" layoutX="142.0" layoutY="184.0" prefWidth="150.0" />
                       
                         <Button alignment="CENTER" layoutX="512.0" layoutY="260.0" mnemonicParsing="false" onMouseClicked="#runCLIPS" prefWidth="80.0" text="Siguiente" />
                      </children>
@@ -67,6 +76,15 @@
                         <ChoiceBox fx:id="cbox_nariz_examinacion" layoutX="142.0" layoutY="66.0" prefWidth="150.0" />
                         
                         <Button alignment="CENTER" layoutX="512.0" layoutY="260.0" mnemonicParsing="false" onMouseClicked="#runCLIPS" prefWidth="80.0" text="Evaluar" />
+                     </children>
+                  </Pane>
+               </content></Tab>
+                <Tab fx:id="tab_diagnostico_prueba" text="Diagnostico PRUEBA AREA">
+               <content>
+                  <Pane prefHeight="329.0" prefWidth="544.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="26.0" text="El Diagnostico es" />                  
+                        <TextArea  fx:id="ta_diagnostico" editable="false" layoutX="142.0" layoutY="26.0" prefWidth="450.0" prefHeight ="250.00"/>
                      </children>
                   </Pane>
                </content></Tab>
