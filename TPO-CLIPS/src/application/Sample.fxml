@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -10,14 +13,23 @@
 
 <BorderPane fx:id="borderPane" prefHeight="428.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <top>
-      <ToolBar fx:id = "toolbar" prefHeight="70.0" prefWidth="806.0" BorderPane.alignment="CENTER">
+      <ToolBar fx:id="toolbar" prefHeight="70.0" prefWidth="806.0" styleClass="split-arrows-horizontal" BorderPane.alignment="CENTER">
          <items>
-            <Label text="Sistema experto - Diagnostico Pediatrico">
+            <Label contentDisplay="CENTER" styleClass="color-palette-region" text="Sistema experto - Diagnostico Pediatrico">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
+               <stylesheets>
+                  <URL value="@../../modena.css" />
+               </stylesheets>
             </Label>
          </items>
+         <effect>
+            <SepiaTone />
+         </effect>
+         <stylesheets>
+            <URL value="@../../modena.css" />
+         </stylesheets>
       </ToolBar>
    </top>
    <center>
@@ -46,22 +58,24 @@
                <content>
                   <Pane prefHeight="329.0" prefWidth="544.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="26.0" text="Tamaño Amigdalas" />
-                        <ChoiceBox fx:id="cbox_amigdalas_tamanio" layoutX="142.0" layoutY="26.0" prefWidth="150.0" />
+                        <Label layoutX="17.0" layoutY="75.0" text="TamaÃ±o" />
+                        <ChoiceBox fx:id="cbox_amigdalas_tamanio" layoutX="142.0" layoutY="71.0" prefWidth="150.0" />
                         
-                        <Label layoutX="14.0" layoutY="66.0" text="Color Amidgaldas" />
-                        <ChoiceBox fx:id="cbox_amigdalas_color" layoutX="142.0" layoutY="66.0" prefWidth="150.0" />                       
+                        <Label layoutX="17.0" layoutY="103.0" text="Color " />
+                        <ChoiceBox fx:id="cbox_amigdalas_color" layoutX="142.0" layoutY="103.0" prefWidth="150.0" />                       
                         
-                        <Label layoutX="14.0" layoutY="105.0" text="Amidgaldas Placas" />
-                        <ChoiceBox fx:id="cbox_amigdalas_placas" layoutX="142.0" layoutY="105.0" prefWidth="150.0" /> 
+                        <Label layoutX="17.0" layoutY="133.0" text="Placas" />
+                        <ChoiceBox fx:id="cbox_amigdalas_placas" layoutX="142.0" layoutY="133.0" prefWidth="150.0" /> 
                         
-                        <Label layoutX="14.0" layoutY="144.0" text="Estreptococo" />
-                        <ChoiceBox fx:id="cbox_garganta_estreptococo" layoutX="142.0" layoutY="144.0" prefWidth="150.0" />
+                        <Label layoutX="17.0" layoutY="202.0" text="Estreptococo" />
+                        <ChoiceBox fx:id="cbox_garganta_estreptococo" layoutX="142.0" layoutY="202.0" prefWidth="150.0" />
                         
-                        <Label layoutX="14.0" layoutY="184.0" text="Cultivo Faringeo" />
-                        <ChoiceBox fx:id="cbox_garganta_cultivoFaringeo" layoutX="142.0" layoutY="184.0" prefWidth="150.0" />
+                        <Label layoutX="17.0" layoutY="231.0" text="Cultivo Faringeo" />
+                        <ChoiceBox fx:id="cbox_garganta_cultivoFaringeo" layoutX="142.0" layoutY="231.0" prefWidth="150.0" />
                       
                         <Button alignment="CENTER" layoutX="512.0" layoutY="260.0" mnemonicParsing="false" onMouseClicked="#runCLIPS" prefWidth="80.0" text="Siguiente" />
+                        <Label layoutX="11.0" layoutY="38.0" text="Amigdalas" />
+                        <Label layoutX="15.0" layoutY="168.0" text="Examinacion Adicional" />
                      </children>
                   </Pane>
                </content></Tab>
@@ -84,7 +98,7 @@
                   <Pane prefHeight="329.0" prefWidth="544.0">
                      <children>
                         <Label layoutX="14.0" layoutY="26.0" text="El Diagnostico es" />                  
-                        <TextArea  fx:id="ta_diagnostico" editable="false" layoutX="142.0" layoutY="26.0" prefWidth="450.0" prefHeight ="250.00"/>
+                        <TextArea fx:id="ta_diagnostico" editable="false" layoutX="142.0" layoutY="26.0" prefHeight="250.00" prefWidth="450.0" />
                      </children>
                   </Pane>
                </content></Tab>
@@ -93,31 +107,31 @@
                   <Pane prefHeight="329.0" prefWidth="544.0">
                      <children>
                         <Label layoutX="14.0" layoutY="26.0" text="Estado de la Garganta" />                  
-                        <TextField  fx:id="tf_garganta_estado" editable="false" layoutX="142.0" layoutY="26.0" prefWidth="150.0" prefHeight ="20.00"/>
+                        <TextField fx:id="tf_garganta_estado" editable="false" layoutX="142.0" layoutY="26.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="66.0" text="Estudio Medico " />
-                        <TextField  fx:id="tf_estudioMedico" editable="false" layoutX="142.0" layoutY="66.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_estudioMedico" editable="false" layoutX="142.0" layoutY="66.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="105.0" text="Observaciones" />
-                        <TextField  fx:id="tf_observaciones" editable="false"  layoutX="142.0" layoutY="105.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_observaciones" editable="false" layoutX="142.0" layoutY="105.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="144.0" text="Examen Adicional" />
-                        <TextField  fx:id="tf_examenAdicional" editable="false" layoutX="142.0" layoutY="144.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_examenAdicional" editable="false" layoutX="142.0" layoutY="144.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="184.0" text="Estado del Oido" />
-                        <TextField  fx:id="tf_oido_estado" editable="false" layoutX="142.0" layoutY="184.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_oido_estado" editable="false" layoutX="142.0" layoutY="184.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="224.0" text="Estado de la Nariz" />
-                        <TextField  fx:id="tf_estado_nariz" editable="false" layoutX="142.0" layoutY="224.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_estado_nariz" editable="false" layoutX="142.0" layoutY="224.0" prefHeight="20.00" prefWidth="150.0" />
                       
                        <Label layoutX="320.0" layoutY="26.0" text="Enfermedad" />
-                        <TextField  fx:id="tf_enfermedad" editable="false" layoutX="400.0" layoutY="26.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_enfermedad" editable="false" layoutX="400.0" layoutY="26.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="320.0" layoutY="66.0" text="Fecha" />
-                        <TextField  fx:id="tf_fecha" editable="false"  layoutX="400.0" layoutY="66.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_fecha" editable="false" layoutX="400.0" layoutY="66.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="320.0" layoutY="105.0" text="Zona Afectada" />
-                        <TextField  fx:id="tf_ZonaAfectada" editable="false"  layoutX="400.0" layoutY="105.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_ZonaAfectada" editable="false" layoutX="400.0" layoutY="105.0" prefHeight="20.00" prefWidth="150.0" />
                      </children>
                   </Pane>
                </content></Tab>
@@ -126,16 +140,16 @@
                   <Pane prefHeight="329.0" prefWidth="544.0">
                      <children>
                         <Label layoutX="14.0" layoutY="26.0" text="Antibiotico" />                  
-                        <TextField  fx:id="tf_receta_antibiotico" editable="false" layoutX="142.0" layoutY="26.0" prefWidth="150.0" prefHeight ="20.00"/>
+                        <TextField fx:id="tf_receta_antibiotico" editable="false" layoutX="142.0" layoutY="26.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="66.0" text="Analgesico" />
-                        <TextField  fx:id="tf_receta_analgesico" editable="false" layoutX="142.0" layoutY="66.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_receta_analgesico" editable="false" layoutX="142.0" layoutY="66.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="105.0" text="Liquido" />
-                        <TextField  fx:id="tf_receta_liquido" editable="false" layoutX="142.0" layoutY="105.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_receta_liquido" editable="false" layoutX="142.0" layoutY="105.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="144.0" text=" Solidos" />                   
-                        <TextField  fx:id="tf_receta_solidos" editable="false" layoutX="142.0" layoutY="144.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_receta_solidos" editable="false" layoutX="142.0" layoutY="144.0" prefHeight="20.00" prefWidth="150.0" />
                      </children>
                   </Pane>
                </content></Tab>
@@ -144,22 +158,22 @@
                   <Pane prefHeight="329.0" prefWidth="544.0">
                      <children>
                         <Label layoutX="14.0" layoutY="26.0" text="Tiempo" />                  
-                        <TextField  fx:id="tf_tratamiento_tiempo" editable="false" layoutX="142.0" layoutY="26.0" prefWidth="150.0" prefHeight ="20.00"/>
+                        <TextField fx:id="tf_tratamiento_tiempo" editable="false" layoutX="142.0" layoutY="26.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="66.0" text="Estado" />
-                        <TextField  fx:id="tf_tratamiento_estado" editable="false" layoutX="142.0" layoutY="66.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_tratamiento_estado" editable="false" layoutX="142.0" layoutY="66.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="105.0" text="Recomendaciones" />
-                        <TextField  fx:id="tf_tratamiento_recomendaciones" editable="false" layoutX="142.0" layoutY="105.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_tratamiento_recomendaciones" editable="false" layoutX="142.0" layoutY="105.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="144.0" text="Visitas" />
-                        <TextField  fx:id="tf_tratamiento_visitas" editable="false" layoutX="142.0" layoutY="144.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_tratamiento_visitas" editable="false" layoutX="142.0" layoutY="144.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="184.0" text="Observaciones" />
-                        <TextField  fx:id="tf_tratamiento_observaciones" editable="false" layoutX="142.0" layoutY="184.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_tratamiento_observaciones" editable="false" layoutX="142.0" layoutY="184.0" prefHeight="20.00" prefWidth="150.0" />
                         
                         <Label layoutX="14.0" layoutY="224.0" text="Derivaciones" />
-                        <TextField  fx:id="tf_tratamiento_derivaciones" editable="false"  layoutX="142.0" layoutY="224.0" prefWidth="150.0" prefHeight ="20.00" />
+                        <TextField fx:id="tf_tratamiento_derivaciones" editable="false" layoutX="142.0" layoutY="224.0" prefHeight="20.00" prefWidth="150.0" />
          
                      </children>
                   </Pane>
