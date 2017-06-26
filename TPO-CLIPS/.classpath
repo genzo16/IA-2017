@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/CLIPSJNI.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/net.sf.fjep.fatjar_0.0.31.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

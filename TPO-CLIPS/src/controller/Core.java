@@ -48,13 +48,19 @@ public class Core {
 		MultifieldValue value2 = (MultifieldValue) e.eval(evaluartratamiento);
 		String evaluarreceta = "(find-all-facts ((?x Receta)) TRUE )";
 		MultifieldValue value3 = (MultifieldValue) e.eval(evaluarreceta);
-		
+        String evaluargarganta = "(find-all-facts ((?x Garganta)) TRUE )";
+        MultifieldValue value4 = (MultifieldValue) e.eval(evaluargarganta);
+        
 		try{
 			
 			//Diagnostico
 			FactAddressValue fv = (FactAddressValue) value1.get(0);
 			resultados.add("Enfermedad: " + fv.getFactSlot("enfermedad").toString().replaceAll("\"", ""));
 			resultados.add("Zona a Tratar: " + fv.getFactSlot("zonaTratar").toString().replaceAll("\"", ""));
+			
+			//Infeccion
+			FactAddressValue fv4 = (FactAddressValue) value4.get(0);
+			resultados.add("Infeccion: " + fv4.getFactSlot("infeccion").toString().replaceAll("\"", ""));
 			
 			//Tratamiento
 			FactAddressValue fv2 = (FactAddressValue) value2.get(0);
@@ -72,6 +78,8 @@ public class Core {
 			resultados.add("Analgesico: " + fv3.getFactSlot("analgesico").toString().replaceAll("\"", ""));
 			resultados.add("Liquidos: " + fv3.getFactSlot("liquidos").toString().replaceAll("\"", ""));
 			resultados.add("Solidos: " + fv3.getFactSlot("solidos").toString().replaceAll("\"", ""));
+			
+
 
 			
 		}catch(Exception err){

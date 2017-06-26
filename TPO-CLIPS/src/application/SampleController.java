@@ -27,6 +27,9 @@ public class SampleController
 	private TextArea ta_diagnostico;
 	@FXML
 	
+	private ChoiceBox<String> cbox_sintoma;
+	@FXML
+	
 	//Variables Garganta
 	private ChoiceBox<String> cbox_garganta_dolor, 
 	cbox_amigdalas_tamanio,
@@ -37,10 +40,12 @@ public class SampleController
 	@FXML
 
 	//Variables Oido
-	private ChoiceBox<String> cbox_oido_examinacion;
+	private ChoiceBox<String> cbox_oido_examinacion,
+	cbox_oido_cultivoFarigeo;
 	@FXML
 	//Variables Nariz
-	private ChoiceBox<String> cbox_nariz_examinacion;
+	private ChoiceBox<String> cbox_nariz_examinacion,
+	cbox_nariz_cultivoFaringeo;
 	@FXML	
 	
 	//Variables del Diagnostico
@@ -83,14 +88,35 @@ public class SampleController
 	
 	public void initialize(){
 		
-		initializeGarganta();
+		initializeSintomas();
 		initializeNariz();
 		initializeOido();
+		initializeCultivoFaringeo();
 		//initializeDiagnosticoFalso();
 	}
-	
-	public void initializeGarganta() 
+	public void initializeCultivoFaringeo() {
+	    //Garganta
+		cbox_garganta_cultivoFaringeo.getItems().removeAll(cbox_garganta_cultivoFaringeo.getItems());
+		cbox_garganta_cultivoFaringeo.getItems().addAll("Positivo", "Negativo");
+		cbox_garganta_cultivoFaringeo.getSelectionModel().select("Negativo");
+		
+	    //Nariz
+		cbox_nariz_cultivoFaringeo.getItems().removeAll(cbox_nariz_cultivoFaringeo.getItems());
+		cbox_nariz_cultivoFaringeo.getItems().addAll("Positivo", "Negativo");
+		cbox_nariz_cultivoFaringeo.getSelectionModel().select("Negativo");
+		
+	    //Cultivo Faringeo
+		cbox_oido_cultivoFarigeo.getItems().removeAll(cbox_oido_cultivoFarigeo.getItems());
+		cbox_oido_cultivoFarigeo.getItems().addAll("Positivo", "Negativo");
+		cbox_oido_cultivoFarigeo.getSelectionModel().select("Negativo");
+		
+	}
+	public void initializeSintomas() 
 	{ 
+		cbox_sintoma.getItems().removeAll(cbox_sintoma.getItems());
+		cbox_sintoma.getItems().addAll("Dolor de garganta", "Fiebre", "Dolor de cabeza", "Ninguno");
+		cbox_sintoma.getSelectionModel().select("Dolor de garganta");
+		
 		cbox_paciente_malestar.getItems().removeAll(cbox_paciente_malestar.getItems());
 		cbox_paciente_malestar.getItems().addAll("Garganta", "Ninguno");
 		cbox_paciente_malestar.getSelectionModel().select("Garganta");
@@ -102,7 +128,7 @@ public class SampleController
 		
 	    //Amigdalas Color
 		cbox_amigdalas_color.getItems().removeAll(cbox_amigdalas_color.getItems());
-		cbox_amigdalas_color.getItems().addAll("Rojiza", "Inflamada", "Normal");
+		cbox_amigdalas_color.getItems().addAll("Rojiza", "Normal");
 		cbox_amigdalas_color.getSelectionModel().select("Rojiza");
 		
 		//Amigdalas Placas
@@ -120,15 +146,6 @@ public class SampleController
 		cbox_garganta_estreptococo.getItems().addAll("Positivo", "Negativo");
 		cbox_garganta_estreptococo.getSelectionModel().select("Negativo");
 		
-	    //Cultivo Faringeo
-		cbox_garganta_cultivoFaringeo.getItems().removeAll(cbox_garganta_cultivoFaringeo.getItems());
-		cbox_garganta_cultivoFaringeo.getItems().addAll("Positivo", "Negativo");
-		cbox_garganta_cultivoFaringeo.getSelectionModel().select("Negativo");
-		
-	    //Examen Adicional es OUTPUT
-
-		//Observaciones es OUTPUT
-
 	}
 	
 	public void initializeOido() 
@@ -136,7 +153,7 @@ public class SampleController
 		//Examinacion
 		cbox_oido_examinacion.getItems().removeAll(cbox_oido_examinacion.getItems());
 		cbox_oido_examinacion.getItems().addAll("Positivo", "Negativo");
-		cbox_oido_examinacion.getSelectionModel().select("Positivo");
+		cbox_oido_examinacion.getSelectionModel().select("Negativo");
 		
 		//Estado ES OUTPUT
 
@@ -147,7 +164,7 @@ public class SampleController
 		//Examinacion
 		cbox_nariz_examinacion.getItems().removeAll(cbox_nariz_examinacion	.getItems());
 		cbox_nariz_examinacion.getItems().addAll("Positivo", "Negativo");
-		cbox_nariz_examinacion.getSelectionModel().select("Positivo");
+		cbox_nariz_examinacion.getSelectionModel().select("Negativo");
 		
 		//Estado ES OUTPUT
 
@@ -177,16 +194,21 @@ public class SampleController
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		LocalDateTime now = LocalDateTime.now();
 
-		List<String> resultados = Core.diagnosticar(paciente_dni.getText(), paciente_nombre.getText(), paciente_apellido.getText(), now.toString(), "Dolor de garganta" ,cbox_paciente_malestar.getValue(),
-		cbox_amigdalas_tamanio.getValue(), cbox_amigdalas_color.getValue(), cbox_amigdalas_placas.getValue(), cbox_oido_examinacion.getValue(), "Oido", cbox_nariz_examinacion.getValue(), "Nariz" , "Negativo" , "Garganta" , "Negativo");
+		List<String> resultados = Core.diagnosticar(paciente_dni.getText(), paciente_nombre.getText(), paciente_apellido.getText(), now.toString(), cbox_sintoma.getValue() ,cbox_paciente_malestar.getValue(),
+				cbox_amigdalas_tamanio.getValue(), cbox_amigdalas_color.getValue(), cbox_amigdalas_placas.getValue(), cbox_oido_cultivoFarigeo.getValue(), "Oido", cbox_nariz_cultivoFaringeo.getValue(), "Nariz" , cbox_garganta_cultivoFaringeo.getValue() , "Garganta" , "Negativo");
 
 		/*List<String> resultados = Core.diagnosticar("34318122", "pepe", "rodriguez", "26/06/2017", "Dolor de garganta" ,"Garganta",
 				"Grandes", "Rojiza", "No hay", "Negativo", "Oido", "Negativo", "Nariz" , "Negativo" , "Garganta" , "Negativo");
 		*/
 		//Para verificar resultados
-		String resul = null;
+		String resul = "";
+		String aux = "";
 		for(String s: resultados){
-			resul += s +"\n"; 
+			
+			aux = s;
+			aux = s.replace("(", "");
+			aux = aux.replace(")", "");
+			resul += aux +"\n"; 
 			System.out.println(s + "\n");
 		}
 		 ta_diagnostico.setText(resul);
